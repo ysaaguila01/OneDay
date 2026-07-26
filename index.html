@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Jessamarie &amp; Christian — Our Grand Adventure</title>
+<!--
+  IMAGE SLOTS — this file expects two photos you generate/license yourself and
+  drop next to it in an /images folder. Until they exist, elegant CSS gradients
+  render in their place automatically (see the onerror fallback in the JS).
+
+  /images/hero-bg.jpg   (portrait, ~9:16)
+    Prompt: Luxury wedding at dusk, elegant navy blue atmosphere, grand European
+    ballroom entrance, white marble staircase, glowing crystal chandeliers,
+    subtle gold details, romantic candlelight, cinematic lighting, premium
+    editorial photography, luxury wedding invitation background, no people,
+    ultra realistic, navy blue and gold palette, 9:16
+
+  /images/story-bg.jpg  (landscape flat lay)
+    Prompt: Luxury flat lay of vintage love letters, antique compass, white
+    roses, navy blue silk fabric, gold wax seal, elegant wedding stationery,
+    premium editorial photography, soft natural light, luxurious composition,
+    no text
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0a1428;
+    --navy:#152a4d;
+    --navy-soft:#1e3660;
+    --gold:#c6a15b;
+    --gold-light:#e7d3a0;
+    --gold-dim:#8a7239;
+    --cream:#f6f0e3;
+    --cream-soft:#efe6d1;
+    --ink:#1c2436;
+    --white:#ffffff;
+    --serif: 'Cormorant Garamond', serif;
+    --serif-names: 'Bodoni Moda', serif;
+    --script: 'Great Vibes', cursive;
+    --sans: 'Jost', sans-serif;
+    --wrap: 1120px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--cream);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:var(--sans);
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    font-weight:500;
+  }
+  .hairline{
+    width:64px;height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    margin:22px auto;
+  }
+
+  /* ---------- filmic grain, sits over everything ---------- */
+  .grain{
+    position:fixed;inset:0;z-index:200;pointer-events:none;
+    opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* reveal-on-scroll */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease, transform .9s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ============ NAV ============ */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:20px 0;
+    transition:background .4s ease, padding .4s ease, box-shadow .4s ease;
+  }
+  header.scrolled{
+    background:rgba(10,20,40,.55);
+    padding:12px 0;
+    box-shadow:0 6px 24px rgba(0,0,0,.25);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid rgba(198,161,91,.4);
+  }
+  header .wrap{display:flex;align-items:center;justify-content:space-between;}
+  .logo{
+    font-family:var(--serif);
+    font-size:1.3rem;
+    color:var(--gold-light);
+    letter-spacing:.08em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo svg{width:26px;height:26px;flex:none;}
+  nav.links{display:flex;gap:34px;}
+  nav.links a{
+    font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--cream);opacity:.82;font-weight:400;position:relative;padding-bottom:4px;
+  }
+  nav.links a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);
+    transition:width .35s ease;
+  }
+  nav.links a:hover{opacity:1;}
+  nav.links a:hover::after{width:100%;}
+  .burger{display:none;width:26px;height:20px;position:relative;cursor:pointer;background:none;border:none;}
+  .burger span{
+    position:absolute;left:0;width:100%;height:1px;background:var(--gold-light);
+    transition:transform .3s ease, opacity .3s ease, top .3s ease;
+  }
+  .burger span:nth-child(1){top:0;}
+  .burger span:nth-child(2){top:9px;}
+  .burger span:nth-child(3){top:18px;}
+  .burger.open span:nth-child(1){top:9px;transform:rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){top:9px;transform:rotate(-45deg);}
+  .mobile-panel{
+    position:fixed;top:0;right:0;height:100vh;width:74%;max-width:320px;
+    background:var(--navy-deep);
+    transform:translateX(100%);transition:transform .45s ease;
+    z-index:99;display:flex;flex-direction:column;align-items:flex-start;
+    padding:110px 40px;gap:26px;border-left:1px solid rgba(198,161,91,.25);
+  }
+  .mobile-panel.open{transform:translateX(0);}
+  .mobile-panel a{
+    font-family:var(--serif);font-size:1.4rem;color:var(--cream);letter-spacing:.03em;
+  }
+  @media (max-width:820px){
+    nav.links{display:none;}
+    .burger{display:block;}
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    color:var(--cream);
+    padding:120px 24px 60px;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .hero-bg{position:absolute;inset:0;z-index:-3;overflow:hidden;background:#0a1428;}
+  .hero-bg.is-fallback{
+    background:
+      radial-gradient(circle at 30% 88%, rgba(255,214,140,.22), transparent 6%),
+      radial-gradient(circle at 34% 90%, rgba(255,214,140,.18), transparent 5%),
+      radial-gradient(circle at 38% 86%, rgba(255,214,140,.2), transparent 5%),
+      radial-gradient(circle at 62% 91%, rgba(255,214,140,.2), transparent 6%),
+      radial-gradient(circle at 66% 87%, rgba(255,214,140,.16), transparent 5%),
+      radial-gradient(circle at 70% 92%, rgba(255,214,140,.18), transparent 5%),
+      radial-gradient(circle at 18% 78%, rgba(246,240,227,.14), transparent 12%),
+      radial-gradient(circle at 82% 80%, rgba(246,240,227,.12), transparent 12%),
+      radial-gradient(ellipse at 50% -5%, rgba(231,211,160,.22), transparent 40%),
+      radial-gradient(circle at 12% 45%, rgba(198,161,91,.07), transparent 30%),
+      radial-gradient(ellipse at 50% 105%, rgba(198,161,91,.16), transparent 55%),
+      radial-gradient(circle at 20% 15%, rgba(231,211,160,.10), transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(198,161,91,.09), transparent 45%),
+      linear-gradient(180deg, #0a1428 0%, #0f1e3a 45%, #0a1428 100%);
+  }
+  .hero-vignette{
+    position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 55% at 50% 42%, rgba(6,12,26,.62) 0%, rgba(6,12,26,.34) 45%, transparent 75%),
+      linear-gradient(180deg, rgba(6,12,26,.35) 0%, transparent 18%, transparent 78%, rgba(6,12,26,.55) 100%);
+  }
+  .hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;opacity:1;}
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(10,20,40,.1) 0%, rgba(10,20,40,.15) 55%, rgba(10,20,40,.55) 100%);
+  }
+  .fog{position:absolute;z-index:-2;border-radius:50%;filter:blur(60px);opacity:.35;mix-blend-mode:screen;pointer-events:none;}
+  .fog.f1{width:60vw;height:60vw;background:radial-gradient(circle, rgba(231,211,160,.5), transparent 70%);top:-10%;left:-15%;animation:driftA 34s ease-in-out infinite;}
+  .fog.f2{width:70vw;height:70vw;background:radial-gradient(circle, rgba(198,161,91,.35), transparent 70%);bottom:-20%;right:-20%;animation:driftB 42s ease-in-out infinite;}
+  .fog.f3{width:45vw;height:45vw;background:radial-gradient(circle, rgba(255,255,255,.12), transparent 70%);top:35%;left:60%;animation:driftA 50s ease-in-out infinite reverse;}
+  @keyframes driftA{0%,100%{transform:translate(0,0);}50%{transform:translate(6%,4%);}}
+  @keyframes driftB{0%,100%{transform:translate(0,0);}50%{transform:translate(-5%,-6%);}}
+  @media (prefers-reduced-motion: reduce){ .fog{animation:none;} }
+
+  #particles{position:absolute;inset:0;z-index:-1;pointer-events:none;}
+
+  .hero-inner{position:relative;z-index:2;max-width:640px;}
+
+  .mono-letters{
+    font-family:var(--serif-names);font-weight:600;font-style:italic;
+    font-size:clamp(4.4rem,15vw,7rem);line-height:.9;
+    color:var(--gold-light);
+    background:linear-gradient(180deg,#f5e6bd 0%,#d8b26a 45%,#a97f3a 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 18px rgba(198,161,91,.55)) drop-shadow(0 4px 30px rgba(0,0,0,.6));
+    letter-spacing:-.02em;
+  }
+  .mini-flourish{width:60px;height:10px;margin:14px auto;opacity:.9;
+    filter:drop-shadow(0 1px 6px rgba(0,0,0,.5));}
+
+  .hero-title{
+    font-family:var(--sans);font-weight:500;
+    font-size:clamp(1.05rem,2.6vw,1.4rem);
+    letter-spacing:.32em;text-transform:uppercase;
+    color:var(--cream);text-indent:.32em;
+    text-shadow:0 2px 14px rgba(0,0,0,.7), 0 0 20px rgba(0,0,0,.5);
+  }
+
+  .names-script{
+    font-family:var(--script);font-weight:400;font-style:normal;
+    font-size:clamp(2.6rem,9vw,4.6rem);
+    line-height:1.05;margin:6px 0 0;
+    background:linear-gradient(180deg,#f5e6bd 0%,#d8b26a 50%,#b8924f 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 4px 24px rgba(0,0,0,.65)) drop-shadow(0 0 14px rgba(198,161,91,.3));
+  }
+  .names-script .amp{font-size:1.05em;}
+
+  .hero .sub{
+    font-family:var(--serif);font-weight:400;font-size:clamp(1.05rem,2.6vw,1.35rem);
+    color:var(--cream);letter-spacing:.01em;line-height:1.55;
+    text-shadow:0 2px 16px rgba(0,0,0,.75), 0 0 24px rgba(0,0,0,.5);
+  }
+  .hero .sub em{
+    font-family:var(--script);font-style:normal;color:var(--gold-light);
+    font-size:1.25em;font-weight:400;
+  }
+
+  .date-divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto 14px;max-width:220px;}
+  .date-divider svg{width:20px;height:20px;flex:none;filter:drop-shadow(0 1px 6px rgba(0,0,0,.6));}
+  .date-divider .d-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+
+  .date-line{
+    font-family:var(--serif);font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    font-size:clamp(1.35rem,3.6vw,1.75rem);color:var(--gold-light);
+    text-shadow:0 2px 14px rgba(0,0,0,.7), 0 0 18px rgba(198,161,91,.3);
+  }
+  .date-line span{
+    display:block;margin-top:6px;font-family:var(--sans);font-weight:400;
+    font-size:.78rem;letter-spacing:.32em;color:var(--cream);
+    text-shadow:0 2px 10px rgba(0,0,0,.7);
+  }
+
+  .countdown{
+    display:flex;justify-content:center;margin:30px auto 0;max-width:400px;
+    background:rgba(8,16,32,.42);
+    border:1px solid rgba(231,211,160,.55);
+    border-radius:14px;
+    backdrop-filter:blur(16px) saturate(150%);
+    -webkit-backdrop-filter:blur(16px) saturate(150%);
+    box-shadow:0 12px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.1);
+    overflow:hidden;
+  }
+  .countdown .cell{
+    flex:1;padding:16px 6px;text-align:center;position:relative;
+  }
+  .countdown .cell + .cell::before{
+    content:'';position:absolute;left:0;top:18%;bottom:18%;width:1px;
+    background:rgba(198,161,91,.4);
+  }
+  .countdown .num{
+    font-family:var(--serif-names);font-weight:600;font-size:clamp(1.5rem,4.4vw,2.1rem);
+    color:var(--gold-light);text-shadow:0 2px 10px rgba(0,0,0,.6);
+  }
+  .countdown .lab{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cream);margin-top:5px;opacity:.9;}
+
+  .scroll-cue{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+    font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);
+    opacity:0;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;
+    animation:cuePulse 2.6s ease-in-out infinite;
+    animation-delay:2.5s;
+    text-shadow:0 2px 10px rgba(0,0,0,.7);
+  }
+  .cue-ring{
+    width:34px;height:34px;border-radius:50%;border:1px solid rgba(231,211,160,.7);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 16px rgba(0,0,0,.4);
+  }
+  .cue-ring svg{width:16px;height:16px;}
+  @keyframes cuePulse{0%,100%{opacity:.55;}50%{opacity:1;}}
+
+  /* ---------- intro: black-screen reveal ---------- */
+  .intro-veil{
+    position:fixed;inset:0;z-index:300;background:#04070f;
+    display:flex;align-items:center;justify-content:center;
+    transition:opacity .9s ease .1s, visibility .9s ease .1s;
+  }
+  .intro-veil.hide{opacity:0;visibility:hidden;pointer-events:none;}
+  @media (prefers-reduced-motion: reduce){ .intro-veil{display:none;} }
+
+  .hero-inner .mono-letters{opacity:0;transform:scale(.85);
+    animation:monoPop 1s ease forwards;animation-delay:.15s;}
+  .hero-inner .mono-letters + .mini-flourish{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.75s;}
+  .hero-inner .hero-title{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.9s;}
+  .hero-inner .hero-title + .mini-flourish{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:1.05s;}
+  .hero-inner .names-script{opacity:0;animation:fadeUp .9s ease forwards;animation-delay:1.2s;}
+  .hero-inner .names-script + .mini-flourish{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:1.55s;}
+  .hero-inner .sub{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:1.7s;}
+  .hero-inner .date-divider{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:1.95s;}
+  .hero-inner .date-line{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:2.1s;}
+  .hero-inner .countdown{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:2.3s;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes monoPop{to{opacity:1;transform:scale(1);}}
+  @media (prefers-reduced-motion: reduce){
+    .hero-inner .mono-letters,.hero-inner .mini-flourish,.hero-inner .hero-title,
+    .hero-inner .names-script,.hero-inner .sub,.hero-inner .date-divider,
+    .hero-inner .date-line,.hero-inner .countdown,.scroll-cue{
+      opacity:1;animation:none;transform:none;
+    }
+  }
+
+  /* ============ SECTION HEADERS ============ */
+  .section{padding:110px 0;position:relative;}
+  .section-head{text-align:center;max-width:600px;margin:0 auto 64px;}
+  .section-head .eyebrow{color:var(--gold-dim);}
+  .section-head h2{
+    font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4vw,3rem);
+    margin-top:12px;color:var(--ink);
+  }
+  .section.dark{background:var(--navy-deep);color:var(--cream);}
+  .section.dark .section-head h2{color:var(--white);}
+  .section.dark .section-head .eyebrow{color:var(--gold);}
+
+  /* section transition fades so dark/light joins aren't hard cuts */
+  .fade-to-dark{height:120px;margin-bottom:-120px;position:relative;z-index:1;
+    background:linear-gradient(180deg, transparent, var(--navy-deep));}
+  .fade-from-dark{height:120px;margin-top:-120px;position:relative;z-index:1;
+    background:linear-gradient(180deg, var(--navy-deep), transparent);}
+
+  /* ============ STORY — cinematic banner ============ */
+  .story-banner{
+    position:relative;min-height:70vh;display:flex;align-items:center;justify-content:center;
+    text-align:center;color:var(--cream);overflow:hidden;isolation:isolate;padding:80px 24px;
+  }
+  .story-bg{position:absolute;inset:0;z-index:-2;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(198,161,91,.14), transparent 60%),
+      linear-gradient(120deg,#0e1c36,#1a2f52 45%,#0a1428);
+  }
+  .story-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;}
+  .story-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,20,40,.55), rgba(10,20,40,.75));}
+  .seal{width:56px;height:56px;margin:0 auto 22px;opacity:.9;}
+  .story-banner .quote{
+    font-family:var(--serif);font-style:italic;font-size:clamp(1.5rem,3.4vw,2.3rem);
+    max-width:640px;line-height:1.5;color:var(--white);text-shadow:0 4px 30px rgba(0,0,0,.4);
+  }
+  .story-banner .quote-attr{margin-top:18px;font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light);}
+
+  .story-intro{max-width:640px;margin:0 auto 60px;text-align:center;}
+  .story-intro p{font-size:1.02rem;line-height:1.8;color:#3a3f4d;font-weight:300;margin-top:14px;}
+
+  /* ============ STORY (timeline) ============ */
+  .timeline{position:relative;max-width:820px;margin:0 auto;}
+  .timeline::before{
+    content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;
+    background:linear-gradient(var(--gold-dim),var(--gold),var(--gold-dim));
+    transform:translateX(-50%);
+  }
+  .t-item{width:50%;padding:0 48px 64px;position:relative;}
+  .t-item:nth-child(odd){left:0;text-align:right;}
+  .t-item:nth-child(even){left:50%;text-align:left;}
+  .t-icon{
+    position:absolute;top:0;width:38px;height:38px;border-radius:50%;
+    background:var(--cream);border:1px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+  }
+  .t-item:nth-child(odd) .t-icon{right:-19px;}
+  .t-item:nth-child(even) .t-icon{left:-19px;}
+  .t-icon svg{width:16px;height:16px;stroke:var(--gold-dim);}
+  .t-date{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);}
+  .t-title{font-family:var(--serif);font-size:1.55rem;margin:6px 0 8px;color:var(--ink);}
+  .t-body{font-size:.95rem;line-height:1.7;color:#3a3f4d;font-weight:300;}
+  .story-quote{
+    max-width:560px;margin:20px auto 0;text-align:center;
+    font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--navy);
+  }
+  @media (max-width:720px){
+    .timeline::before{left:19px;}
+    .t-item, .t-item:nth-child(even){width:100%;left:0;text-align:left;padding:0 0 48px 56px;}
+    .t-item:nth-child(odd) .t-icon, .t-item:nth-child(even) .t-icon{left:0;right:auto;}
+  }
+
+  /* ============ EVENT DETAILS ============ */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:960px;margin:0 auto;}
+  .card{
+    border:1px solid rgba(198,161,91,.35);
+    padding:44px 28px;text-align:center;background:rgba(255,255,255,.02);
+    transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+  }
+  .card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.3);}
+  .card svg{width:30px;height:30px;stroke:var(--gold);margin-bottom:18px;}
+  .card .time{font-family:var(--serif);font-size:1.9rem;color:var(--white);}
+  .card .name{
+    font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light);
+    margin:10px 0 14px;
+  }
+  .card .loc{font-size:.88rem;color:var(--cream);opacity:.75;font-weight:300;}
+  @media (max-width:820px){ .cards{grid-template-columns:1fr;} }
+
+  /* ============ CREW ============ */
+  .crew-block{max-width:880px;margin:0 auto 70px;text-align:center;}
+  .crew-block .label{
+    font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-dim);
+    margin-bottom:26px;position:relative;
+  }
+  .crew-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:36px;text-align:center;}
+  .crew-role{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;}
+  .crew-name{font-family:var(--serif);font-size:1.3rem;color:var(--ink);line-height:1.5;}
+  .sponsors-list{
+    columns:2;gap:40px;max-width:560px;margin:0 auto;font-family:var(--serif);font-size:1.12rem;
+    color:var(--ink);line-height:2.1;text-align:left;
+  }
+  @media (max-width:560px){ .sponsors-list{columns:1;text-align:center;} }
+
+  /* ============ GALLERY ============ */
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;}
+  .frame{position:relative;border:1px solid var(--gold-dim);padding:10px;background:rgba(255,255,255,.02);}
+  .frame .imgbox{
+    aspect-ratio:4/5;overflow:hidden;background:linear-gradient(135deg,var(--navy-soft),var(--navy));
+    display:flex;align-items:center;justify-content:center;
+  }
+  .frame .imgbox img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .frame:hover .imgbox img{transform:scale(1.06);}
+  .frame .imgbox .ph{color:var(--gold-dim);font-family:var(--serif);font-size:.9rem;letter-spacing:.1em;}
+  .frame .cap{text-align:center;padding-top:10px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);}
+
+  /* ============ RSVP ============ */
+  .rsvp-card{max-width:540px;margin:0 auto;background:var(--white);border:1px solid rgba(198,161,91,.4);padding:52px 40px;box-shadow:0 30px 60px rgba(10,20,40,.08);}
+  .field{margin-bottom:24px;text-align:left;}
+  .field label{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;}
+  .field input, .field select{
+    width:100%;border:none;border-bottom:1px solid #d8cbb0;background:transparent;
+    padding:10px 2px;font-family:var(--sans);font-size:1rem;color:var(--ink);outline:none;
+    transition:border-color .3s ease;
+  }
+  .field input:focus, .field select:focus{border-color:var(--gold);}
+  .radio-row{display:flex;gap:22px;}
+  .radio-row label{display:flex;align-items:center;gap:8px;font-size:.85rem;text-transform:none;letter-spacing:.02em;color:var(--ink);cursor:pointer;}
+  .radio-row input{width:auto;}
+  .btn-gold{
+    width:100%;padding:16px;background:var(--navy-deep);color:var(--gold-light);
+    border:1px solid var(--gold);letter-spacing:.22em;text-transform:uppercase;font-size:.78rem;
+    cursor:pointer;transition:background .3s ease,color .3s ease;
+  }
+  .btn-gold:hover{background:var(--gold);color:var(--navy-deep);}
+  .rsvp-note{margin-top:18px;font-size:.8rem;color:#6b6252;text-align:center;}
+  .thanks{display:none;text-align:center;}
+  .thanks.show{display:block;}
+  .thanks svg{width:36px;height:36px;stroke:var(--gold-dim);margin-bottom:14px;}
+  .thanks p{font-family:var(--serif);font-size:1.3rem;color:var(--navy);line-height:1.6;}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--navy-deep);color:var(--cream);text-align:center;padding:70px 24px 40px;}
+  footer .mono{font-family:var(--serif);font-size:1.5rem;color:var(--gold-light);}
+  footer p{margin-top:16px;font-size:.95rem;font-weight:300;line-height:1.7;max-width:420px;margin-left:auto;margin-right:auto;}
+  footer .tag{margin-top:30px;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-dim);}
+
+  ::selection{background:var(--gold);color:var(--navy-deep);}
+
+  /* ============ GOLD CORNER ORNAMENTS ============ */
+  .ornate-frame{position:relative;}
+  .corner{
+    position:absolute;width:34px;height:34px;pointer-events:none;opacity:.85;z-index:3;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M3 26 V6 H23' fill='none' stroke='%23c6a15b' stroke-width='1.1'/><path d='M3 6 Q14 6 16 17' fill='none' stroke='%23c6a15b' stroke-width='.9'/><circle cx='3' cy='6' r='1.6' fill='%23c6a15b'/></svg>") no-repeat center/contain;
+  }
+  .corner-tl{top:10px;left:10px;}
+  .corner-tr{top:10px;right:10px;transform:scaleX(-1);}
+  .corner-bl{bottom:10px;left:10px;transform:scaleY(-1);}
+  .corner-br{bottom:10px;right:10px;transform:scale(-1,-1);}
+
+  /* ============ CREW — parchment panel ============ */
+  .parchment{
+    position:relative;
+    background:
+      radial-gradient(circle at 12% 15%, rgba(198,161,91,.08), transparent 40%),
+      radial-gradient(circle at 88% 85%, rgba(198,161,91,.07), transparent 45%),
+      linear-gradient(150deg,#fbf8ef,#f1e7cd 55%,#f8f2e2);
+    border:1px solid rgba(198,161,91,.4);
+    box-shadow:0 30px 70px rgba(20,16,8,.08), inset 0 0 70px rgba(198,161,91,.06);
+    padding:64px 36px;
+  }
+  @media (max-width:600px){ .parchment{padding:48px 20px;} }
+  .crew-grid > div{transition:opacity .7s ease, transform .7s ease;}
+  .crew-grid > div:nth-child(2){transition-delay:.1s;}
+  .crew-grid > div:nth-child(3){transition-delay:.2s;}
+  .crew-grid > div:nth-child(4){transition-delay:.3s;}
+  .crew-grid > div:nth-child(5){transition-delay:.4s;}
+  .crew-grid > div:nth-child(6){transition-delay:.5s;}
+  .gallery-grid .polaroid:nth-child(2n){transition-delay:.08s;}
+  .gallery-grid .polaroid:nth-child(3n){transition-delay:.16s;}
+
+  /* ============ EVENT — venue cards ============ */
+  .venue-card{
+    position:relative;overflow:hidden;min-height:380px;display:flex;align-items:flex-end;
+    isolation:isolate;border:1px solid rgba(198,161,91,.4);
+    transition:transform .4s ease, box-shadow .4s ease;
+  }
+  .venue-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.4);}
+  .venue-card .vc-fallback{position:absolute;inset:0;z-index:-3;}
+  .venue-card .vc-bg{position:absolute;inset:0;z-index:-2;}
+  .venue-card .vc-bg img{width:100%;height:100%;object-fit:cover;transition:transform .9s ease;}
+  .venue-card:hover .vc-bg img{transform:scale(1.08);}
+  .venue-card .vc-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,20,40,.1) 0%, rgba(10,20,40,.55) 55%, rgba(10,20,40,.95) 100%);}
+  .venue-card .vc-content{
+    position:relative;z-index:1;width:100%;padding:30px 26px;text-align:center;
+    background:rgba(10,20,40,.32);backdrop-filter:blur(8px) saturate(140%);
+    border-top:1px solid rgba(198,161,91,.4);
+  }
+  .venue-card .vc-content svg{width:26px;height:26px;stroke:var(--gold);margin-bottom:12px;}
+  .venue-card .vc-content .time{font-family:var(--serif);font-size:1.8rem;color:var(--white);}
+  .venue-card .vc-content .name{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light);margin:8px 0 12px;}
+  .venue-card .vc-content .loc{font-size:.85rem;color:var(--cream);opacity:.8;font-weight:300;}
+  .cards.venue-cards{grid-template-columns:repeat(3,1fr);}
+  .cards.venue-cards .venue-card:nth-child(1){transition-delay:0s;}
+  .cards.venue-cards .venue-card:nth-child(2){transition-delay:.12s;}
+  .cards.venue-cards .venue-card:nth-child(3){transition-delay:.24s;}
+  @media (max-width:820px){ .cards.venue-cards{grid-template-columns:1fr;} }
+
+  /* ============ GALLERY — velvet + floating polaroids ============ */
+  .gallery-velvet{position:relative;isolation:isolate;padding:10px 0 30px;}
+  .gallery-velvet::before{
+    content:'';position:absolute;inset:-60px -24px;z-index:-2;
+    background:
+      repeating-linear-gradient(115deg, rgba(255,255,255,.02) 0 2px, transparent 2px 7px),
+      radial-gradient(circle at 25% 15%, rgba(198,161,91,.09), transparent 50%),
+      radial-gradient(circle at 80% 90%, rgba(198,161,91,.06), transparent 45%);
+  }
+  .gallery-grid{gap:44px 28px;padding-top:10px;}
+  .polaroid{
+    background:#f8f4e8;padding:14px 14px 30px;box-shadow:0 18px 40px rgba(0,0,0,.4);
+    transition:transform .45s ease, box-shadow .45s ease; position:relative;
+  }
+  .polaroid:nth-child(4n+1){transform:rotate(-3deg);}
+  .polaroid:nth-child(4n+2){transform:rotate(2.4deg);}
+  .polaroid:nth-child(4n+3){transform:rotate(-1.8deg);}
+  .polaroid:nth-child(4n+4){transform:rotate(3.2deg);}
+  .polaroid:hover{transform:rotate(0deg) translateY(-8px) scale(1.04);box-shadow:0 30px 55px rgba(0,0,0,.5);z-index:2;}
+  .polaroid .imgbox{
+    aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(198,161,91,.5);
+    background:linear-gradient(135deg,var(--navy-soft),var(--navy));
+    display:flex;align-items:center;justify-content:center;
+  }
+  .polaroid .imgbox img{width:100%;height:100%;object-fit:cover;}
+  .polaroid .imgbox .ph{color:var(--gold-dim);font-family:var(--serif);font-size:.85rem;}
+  .polaroid .cap{text-align:center;margin-top:12px;font-family:var(--serif);font-style:italic;font-size:.95rem;color:#33291a;}
+
+  /* ============ RSVP — invitation on velvet ============ */
+  .rsvp-wrap{position:relative;isolation:isolate;margin:0 -28px;padding:80px 28px;}
+  .rsvp-wrap .rw-fallback{position:absolute;inset:0;z-index:-3;
+    background:radial-gradient(circle at 50% 25%, rgba(198,161,91,.14), transparent 55%),
+      linear-gradient(160deg,#0a1428,#16264a 55%,#0a1428);}
+  .rsvp-wrap .rw-bg{position:absolute;inset:0;z-index:-2;}
+  .rsvp-wrap .rw-bg img{width:100%;height:100%;object-fit:cover;opacity:.5;}
+  .rsvp-wrap .rw-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,20,40,.55), rgba(10,20,40,.85));}
+  .rsvp-card{
+    position:relative;max-width:540px;margin:0 auto;
+    background:linear-gradient(160deg,#fbf8f0,#f0e6c8 60%,#f7f1e2);
+    border:1px solid rgba(198,161,91,.55);padding:56px 42px;
+    box-shadow:0 40px 80px rgba(0,0,0,.4), inset 0 0 50px rgba(198,161,91,.08);
+  }
+  .rsvp-card .seal-mini{width:38px;height:38px;margin:0 auto 18px;opacity:.85;}
+
+  /* ============ FOOTER — starlit ocean ============ */
+  footer{position:relative;isolation:isolate;overflow:hidden;padding:120px 24px 50px;}
+  footer .f-fallback{position:absolute;inset:0;z-index:-3;
+    background:radial-gradient(ellipse at 50% -15%, rgba(231,211,160,.1), transparent 55%),
+      linear-gradient(180deg,#0a1428 0%,#0a1626 55%,#050a16 100%);}
+  footer .f-bg{position:absolute;inset:0;z-index:-2;}
+  footer .f-bg img{width:100%;height:100%;object-fit:cover;opacity:.45;}
+  footer .f-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,10,20,.35), rgba(5,10,20,.85));}
+  #footerStars{position:absolute;inset:0;z-index:-1;}
+  footer .foot-top-line{width:1px;height:50px;background:linear-gradient(var(--gold),transparent);margin:0 auto 30px;}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <a class="logo" href="#home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+      JC
+    </a>
+    <nav class="links">
+      <a href="#home">Home</a>
+      <a href="#story">Our Story</a>
+      <a href="#event">Details</a>
+      <a href="#crew">Wedding Party</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#rsvp">RSVP</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#home">Home</a>
+  <a href="#story">Our Story</a>
+  <a href="#event">Details</a>
+  <a href="#crew">Wedding Party</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#rsvp">RSVP</a>
+</div>
+
+<!-- ================= INTRO VEIL ================= -->
+<div class="intro-veil" id="introVeil"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg">
+    <img id="heroImg" src="images/hero-bg.png" alt=""
+         onerror="this.remove(); document.getElementById('heroBg').classList.add('is-fallback');">
+  </div>
+  <div class="hero-vignette"></div>
+  <div class="fog f1"></div>
+  <div class="fog f2"></div>
+  <div class="fog f3"></div>
+  <canvas id="particles"></canvas>
+
+  <div class="hero-inner">
+    <div class="mono-letters">JC</div>
+    <svg class="mini-flourish" viewBox="0 0 60 10" fill="none" stroke="#c6a15b" stroke-width="0.7">
+      <path d="M0 5h20M40 5h20"/><path d="M26 5l4-3 4 3-4 3z"/>
+    </svg>
+    <div class="hero-title">Our Grand Adventure</div>
+    <svg class="mini-flourish" viewBox="0 0 60 10" fill="none" stroke="#c6a15b" stroke-width="0.7">
+      <path d="M0 5h20M40 5h20"/><path d="M26 5l4-3 4 3-4 3z"/>
+    </svg>
+    <h1 class="names-script">Jessamarie<br><span class="amp">&amp;</span> Christian</h1>
+    <svg class="mini-flourish" viewBox="0 0 60 10" fill="none" stroke="#c6a15b" stroke-width="0.7">
+      <path d="M0 5h20M40 5h20"/><path d="M26 5l4-3 4 3-4 3z"/>
+    </svg>
+    <div class="sub">Every great adventure<br>begins with &ldquo;<em>Yes.</em>&rdquo;</div>
+    <div class="date-divider">
+      <span class="d-line"></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#c6a15b" stroke-width="1.3"><rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      <span class="d-line"></span>
+    </div>
+    <div class="date-line">December 28, 2026<span>Rosario, Batangas</span></div>
+    <div class="countdown" id="countdown">
+      <div class="cell"><div class="num" id="cd-days">00</div><div class="lab">Days</div></div>
+      <div class="cell"><div class="num" id="cd-hours">00</div><div class="lab">Hrs</div></div>
+      <div class="cell"><div class="num" id="cd-mins">00</div><div class="lab">Mins</div></div>
+      <div class="cell"><div class="num" id="cd-secs">00</div><div class="lab">Secs</div></div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span class="cue-ring"><svg viewBox="0 0 24 24" fill="none" stroke="#e7d3a0" stroke-width="1.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+    <span class="cue-text">Scroll to Begin Journey</span>
+  </div>
+</section>
+
+<!-- ================= STORY ================= -->
+<section id="story">
+  <div class="story-banner">
+    <div class="story-bg" id="storyBg">
+      <img id="storyImg" src="images/story-bg.jpg" alt=""
+           onerror="this.remove(); document.getElementById('storyBg').classList.add('is-fallback');">
+    </div>
+    <div style="position:relative;z-index:1;">
+      <svg class="seal" viewBox="0 0 64 64" fill="none" stroke="#e7d3a0" stroke-width="1">
+        <circle cx="32" cy="32" r="26"/><circle cx="32" cy="32" r="19"/>
+        <path d="M32 13v10M32 41v10M13 32h10M41 32h10M19 19l7 7M38 38l7 7M45 19l-7 7M26 38l-7 7"/>
+      </svg>
+      <div class="quote">"Every great adventure begins with a moment no one expects — and today, with grateful hearts, we begin our greatest one yet."</div>
+      <div class="quote-attr">Jessamarie &amp; Christian</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="wrap">
+      <div class="story-intro reveal">
+        <div class="eyebrow" style="color:var(--gold-dim);">Our Story</div>
+        <p>A decade-long journey — from a chance afternoon in Marmaine to the promise we're keeping this December.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="t-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></div>
+          <div class="t-date">April 23, 2016</div>
+          <div class="t-title">Where Paths Crossed</div>
+          <div class="t-body">Our paths first crossed on a quiet afternoon at Christian's family home in Marmaine. A casual gathering among friends unexpectedly became the beginning of our story.</div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg></div>
+          <div class="t-date">Soon After</div>
+          <div class="t-title">The Beginning</div>
+          <div class="t-body">A friend request, a few quiet reactions, and countless late conversations slowly brought us closer together.</div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1.2 4 2 0 0 1-1 4-2 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg></div>
+          <div class="t-date">June 12, 2016</div>
+          <div class="t-title">Officially Us</div>
+          <div class="t-body">We officially became partners — the day the adventure truly set sail.</div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg></div>
+          <div class="t-date">Ten Years Later</div>
+          <div class="t-title">Countless Memories</div>
+          <div class="t-body">Over the following decade, we shared countless memories, weathered challenges, and learned that the greatest adventures are the ones shared together.</div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M6 3v18M6 3l10 4-10 4"/></svg></div>
+          <div class="t-date">Our Plan</div>
+          <div class="t-title">A Quiet Elopement</div>
+          <div class="t-body">We once dreamed of a simple elopement, believing an intimate ceremony for just the two of us would be enough.</div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M12 2l2.5 6.5L21 9l-5 4.5 1.5 7L12 17l-5.5 3.5L8 13.5 3 9l6.5-.5z"/></svg></div>
+          <div class="t-date">August 2026</div>
+          <div class="t-title">A Different Journey</div>
+          <div class="t-body">But a different plan was written for us. With the love and encouragement of our families, our quiet dream grew into a celebration surrounded by everyone who matters most.</div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M12 3v18M7 8h10"/></svg></div>
+          <div class="t-date">Today</div>
+          <div class="t-title">Grateful Hearts</div>
+          <div class="t-body">Looking back, every unexpected meeting, every conversation, and every blessing led us here — to the beginning of our greatest adventure yet.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EVENT DETAILS ================= -->
+<div class="fade-to-dark"></div>
+<section class="section dark" id="event">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Event Details</div>
+      <h2>Join us on our special day</h2>
+    </div>
+    <div class="cards venue-cards">
+      <div class="venue-card reveal">
+        <div class="vc-fallback" style="background:radial-gradient(circle at 50% 30%, rgba(198,161,91,.18), transparent 55%), linear-gradient(160deg,#152a4d,#0a1428);"></div>
+        <div class="vc-bg"><img src="images/ceremony-bg.jpg" alt="" onerror="this.remove();"></div>
+        <div class="vc-content">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c2 0 3.5 1.2 4 2 0 0 1-1 4-2 3.5 0 6 3.5 4 7.5C19 16.65 12 21 12 21z"/></svg>
+          <div class="time">12:30 PM</div>
+          <div class="name">Ceremony</div>
+          <div class="loc">Event Center, Rosario, Batangas</div>
+        </div>
+      </div>
+      <div class="venue-card reveal">
+        <div class="vc-fallback" style="background:radial-gradient(circle at 50% 30%, rgba(231,211,160,.16), transparent 55%), linear-gradient(160deg,#1e3660,#0d1830);"></div>
+        <div class="vc-bg"><img src="images/reception-bg.jpg" alt="" onerror="this.remove();"></div>
+        <div class="vc-content">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 3v6M16 3v6M3 11h18"/></svg>
+          <div class="time">2:30 PM</div>
+          <div class="name">Reception</div>
+          <div class="loc">Event Center, Rosario, Batangas</div>
+        </div>
+      </div>
+      <div class="venue-card reveal">
+        <div class="vc-fallback" style="background:radial-gradient(circle at 50% 30%, rgba(198,161,91,.2), transparent 55%), linear-gradient(160deg,#0d1830,#050b18);"></div>
+        <div class="vc-bg"><img src="images/celebration-bg.jpg" alt="" onerror="this.remove();"></div>
+        <div class="vc-content">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><path d="M12 2l2.5 6.5L21 9l-5 4.5 1.5 7L12 17l-5.5 3.5L8 13.5 3 9l6.5-.5z"/></svg>
+          <div class="time">4:30 PM</div>
+          <div class="name">Celebration</div>
+          <div class="loc">Onwards · Event Center, Rosario, Batangas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="fade-from-dark"></div>
+
+<!-- ================= CREW ================= -->
+<section class="section" id="crew">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our Crew</div>
+      <h2>The people sailing this journey with us</h2>
+    </div>
+
+    <div class="parchment ornate-frame reveal">
+    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+
+    <div class="crew-block reveal" style="margin-bottom:50px;">
+      <div class="label">Captains</div>
+      <div class="crew-name" style="font-size:1.6rem;">Jessamarie &amp; Christian</div>
+    </div>
+
+    <div class="hairline"></div>
+
+    <div class="crew-block reveal">
+      <div class="label">Guardians of Our Voyage — Parents</div>
+      <div class="crew-grid">
+        <div>
+          <div class="crew-role">Parents of the Bride</div>
+          <div class="crew-name">Mr. Ruben Aguila<br>Mrs. Anastacia Aguila</div>
+        </div>
+        <div>
+          <div class="crew-role">Parents of the Groom</div>
+          <div class="crew-name">Mrs. Fatima Laraya</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hairline"></div>
+
+    <div class="crew-block reveal">
+      <div class="label">Guardians of Our Promise — Principal Sponsors</div>
+      <div class="sponsors-list">
+        <div>Armel &amp; Ijed Laraya</div>
+        <div>Kamil &amp; Teresa Laraya</div>
+        <div>Victor &amp; Mina Lopez</div>
+        <div>Juliu &amp; Rowena Baterna</div>
+        <div>Romulo &amp; Rodora Palicpic</div>
+        <div>Kayetherine Masacayan</div>
+        <div>Eden Rizare</div>
+        <div>Percival Landicho</div>
+        <div>Marissa Agdan</div>
+      </div>
+    </div>
+
+    <div class="hairline"></div>
+
+    <div class="crew-block reveal">
+      <div class="crew-grid">
+        <div><div class="crew-role">First Mate</div><div class="crew-name">John Vincent Laraya</div></div>
+        <div><div class="crew-role">Navigator</div><div class="crew-name">Vina Lopez</div></div>
+      </div>
+    </div>
+
+    <div class="hairline"></div>
+
+    <div class="crew-block reveal">
+      <div class="crew-grid">
+        <div>
+          <div class="crew-role">Groomsmen</div>
+          <div class="crew-name">Jeff Cruz<br>Verni Ajon<br>Karl Latorre<br>Ranie Sabile</div>
+        </div>
+        <div>
+          <div class="crew-role">Bridesmaids</div>
+          <div class="crew-name">Jovel Lopez<br>Maria Raquel Hernandez<br>Hazel Olea<br>Hanna Almoniña</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hairline"></div>
+
+    <div class="crew-block reveal">
+      <div class="label">Bearers of Our Treasures</div>
+      <div class="crew-grid">
+        <div><div class="crew-role">Candle</div><div class="crew-name">Alden Cruz<br>Sharriz Anne Cruz</div></div>
+        <div><div class="crew-role">Cord</div><div class="crew-name">Louie Seminiano<br>Bea Laraya</div></div>
+        <div><div class="crew-role">Veil</div><div class="crew-name">Peter Romero<br>Ansherina Buquir</div></div>
+        <div><div class="crew-role">Bible</div><div class="crew-name">Rhian Aguila</div></div>
+        <div><div class="crew-role">Coin</div><div class="crew-name">Ace Aguila</div></div>
+        <div><div class="crew-role">Ring</div><div class="crew-name">Mace Aguila</div></div>
+      </div>
+    </div>
+
+    <div class="hairline"></div>
+
+    <div class="crew-block reveal" style="margin-bottom:0;">
+      <div class="label">Little Sailors — Flower Bearers</div>
+      <div class="crew-name">Andrew Renz Laraya · CJ Laraya · Amando Laraya</div>
+    </div>
+    </div><!-- /.parchment -->
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<div class="fade-to-dark"></div>
+<section class="section dark" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Gallery</div>
+      <h2>Some of our favorite memories</h2>
+    </div>
+    <div class="gallery-velvet">
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </div>
+</section>
+<div class="fade-from-dark"></div>
+
+<!-- ================= RSVP ================= -->
+<section class="section dark" id="rsvp" style="padding:0;">
+  <div class="rsvp-wrap">
+    <div class="rw-fallback"></div>
+    <div class="rw-bg"><img src="images/rsvp-bg.jpg" alt="" onerror="this.remove();"></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">RSVP</div>
+        <h2>Will you join our crew?</h2>
+      </div>
+
+      <div class="rsvp-card ornate-frame reveal">
+        <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+        <svg class="seal-mini" viewBox="0 0 64 64" fill="none" stroke="#8a7239" stroke-width="1">
+          <circle cx="32" cy="32" r="26"/><circle cx="32" cy="32" r="19"/>
+          <path d="M32 13v10M32 41v10M13 32h10M41 32h10"/>
+        </svg>
+      <form id="rsvpForm">
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" required>
+        </div>
+        <div class="field">
+          <label for="guestCount">Number of Guests</label>
+          <select id="guestCount">
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Will you join our adventure?</label>
+          <div class="radio-row">
+            <label><input type="radio" name="attend" value="yes" checked> Yes, I'll be there</label>
+            <label><input type="radio" name="attend" value="no"> Can't make it</label>
+          </div>
+        </div>
+        <button type="submit" class="btn-gold">Join Our Crew</button>
+        <div class="rsvp-note">Kindly respond by November 28, 2026.</div>
+      </form>
+
+      <div class="thanks" id="thanksBox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8a7239" stroke-width="1" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <p>Thank you. Your RSVP has been noted.<br>We can't wait to sail into this new chapter with you.</p>
+      </div>
+      </div><!-- /.rsvp-card -->
+    </div><!-- /.wrap -->
+  </div><!-- /.rsvp-wrap -->
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="f-fallback"></div>
+  <div class="f-bg"><img src="images/footer-bg.jpg" alt="" onerror="this.remove();"></div>
+  <canvas id="footerStars"></canvas>
+  <div class="foot-top-line"></div>
+  <div class="mono">Jessamarie &amp; Christian</div>
+  <p>This is not the end of the journey. It's the beginning of our forever. Thank you for sailing with us.</p>
+  <div class="tag">J &amp; C · 12.28.26 · #OurGrandAdventure</div>
+</footer>
+
+<script>
+  // ---- Gallery image config — update to your repo path ----
+  const IMG_BASE = "images/";
+  const GALLERY_IMAGES = ["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg","photo6.jpg"];
+  const galleryGrid = document.getElementById('galleryGrid');
+  GALLERY_IMAGES.forEach((file,i)=>{
+    const frame = document.createElement('div');
+    frame.className = 'polaroid reveal';
+    frame.innerHTML = `
+      <div class="imgbox">
+        <img src="${IMG_BASE}${file}" alt="Memory ${i+1}"
+             onerror="this.style.display='none'; this.parentElement.querySelector('.ph').style.display='block';">
+        <span class="ph" style="display:none;">Memory ${String(i+1).padStart(2,'0')}</span>
+      </div>
+      <div class="cap">Moment ${String(i+1).padStart(2,'0')}</div>`;
+    galleryGrid.appendChild(frame);
+  });
+
+  // ---- Intro veil: black screen lifts once the reveal sequence is underway ----
+  const introVeil = document.getElementById('introVeil');
+  if(reduceMotionCheck()){
+    introVeil.classList.add('hide');
+  } else {
+    window.addEventListener('load', ()=>{
+      setTimeout(()=>{ introVeil.classList.add('hide'); }, 250);
+    });
+    // fallback in case 'load' already fired or is delayed
+    setTimeout(()=>{ introVeil.classList.add('hide'); }, 1200);
+  }
+  function reduceMotionCheck(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  // ---- Header scroll state ----
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', ()=>{ header.classList.toggle('scrolled', window.scrollY > 40); });
+
+  // ---- Mobile nav ----
+  const burger = document.getElementById('burger');
+  const panel = document.getElementById('mobilePanel');
+  burger.addEventListener('click', ()=>{ burger.classList.toggle('open'); panel.classList.toggle('open'); });
+  panel.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
+    burger.classList.remove('open'); panel.classList.remove('open');
+  }));
+
+  // ---- Countdown ----
+  const target = new Date("2026-12-28T12:30:00+08:00").getTime();
+  function tick(){
+    const now = Date.now();
+    const diff = Math.max(0, target - now);
+    document.getElementById('cd-days').textContent = String(Math.floor(diff/86400000)).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+  }
+  tick(); setInterval(tick,1000);
+
+  // ---- RSVP (visual only) ----
+  document.getElementById('rsvpForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('thanksBox').classList.add('show');
+  });
+
+  // ---- Reveal on scroll ----
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // ---- Subtle parallax on hero/story background images ----
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion){
+    const heroBg = document.getElementById('heroBg');
+    const storyBg = document.getElementById('storyBg');
+    window.addEventListener('scroll', ()=>{
+      const y = window.scrollY;
+      heroBg.style.transform = `translateY(${y*0.15}px)`;
+      const storyRect = storyBg.getBoundingClientRect();
+      if(storyRect.top < window.innerHeight && storyRect.bottom > 0){
+        storyBg.style.transform = `translateY(${(y - storyBg.offsetTop)*0.1}px)`;
+      }
+    }, {passive:true});
+  }
+
+  // ---- Drifting gold particles in hero (skipped if reduced motion) ----
+  if(!reduceMotion){
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    const hero = document.getElementById('home');
+    let particles = [];
+
+    function resize(){
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+      const count = Math.min(70, Math.floor((canvas.width*canvas.height)/22000));
+      particles = Array.from({length:count}, ()=>({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*1.6+0.4,
+        speed: Math.random()*0.35+0.08,
+        sway: Math.random()*0.6+0.2,
+        phase: Math.random()*Math.PI*2,
+        alpha: Math.random()*0.5+0.2
+      }));
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach(p=>{
+        p.y -= p.speed;
+        p.phase += 0.01;
+        p.x += Math.sin(p.phase)*p.sway*0.05;
+        if(p.y < -10){ p.y = canvas.height+10; p.x = Math.random()*canvas.width; }
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = `rgba(231,211,160,${p.alpha})`;
+        ctx.shadowColor = 'rgba(198,161,91,0.8)';
+        ctx.shadowBlur = 4;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // ---- Footer: twinkling stars + occasional shooting star ----
+  if(!reduceMotion){
+    const fCanvas = document.getElementById('footerStars');
+    const fCtx = fCanvas.getContext('2d');
+    const footerEl = document.querySelector('footer');
+    let stars = [], shooters = [];
+
+    function resizeFooter(){
+      fCanvas.width = footerEl.offsetWidth;
+      fCanvas.height = footerEl.offsetHeight;
+      const count = Math.min(90, Math.floor((fCanvas.width*fCanvas.height)/14000));
+      stars = Array.from({length:count}, ()=>({
+        x: Math.random()*fCanvas.width,
+        y: Math.random()*fCanvas.height*0.75,
+        r: Math.random()*1.3+0.3,
+        phase: Math.random()*Math.PI*2,
+        speed: Math.random()*0.02+0.01
+      }));
+    }
+    resizeFooter();
+    window.addEventListener('resize', resizeFooter);
+
+    function maybeSpawnShooter(){
+      if(Math.random() < 0.006 && shooters.length < 2){
+        const startX = Math.random()*fCanvas.width*0.6;
+        const startY = Math.random()*fCanvas.height*0.3;
+        shooters.push({x:startX, y:startY, len:0, maxLen: 90+Math.random()*60, life:1});
+      }
+    }
+
+    function drawFooter(){
+      fCtx.clearRect(0,0,fCanvas.width,fCanvas.height);
+      stars.forEach(s=>{
+        s.phase += s.speed;
+        const a = 0.35 + Math.sin(s.phase)*0.35;
+        fCtx.beginPath();
+        fCtx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        fCtx.fillStyle = `rgba(231,211,160,${Math.max(0,a)})`;
+        fCtx.fill();
+      });
+      maybeSpawnShooter();
+      shooters.forEach(sh=>{
+        sh.len = Math.min(sh.maxLen, sh.len+8);
+        sh.x += 3.2; sh.y += 1.6; sh.life -= 0.012;
+        const grad = fCtx.createLinearGradient(sh.x, sh.y, sh.x - sh.len*0.7, sh.y - sh.len*0.35);
+        grad.addColorStop(0, `rgba(255,255,255,${Math.max(0,sh.life)})`);
+        grad.addColorStop(1, 'rgba(255,255,255,0)');
+        fCtx.strokeStyle = grad;
+        fCtx.lineWidth = 1.4;
+        fCtx.beginPath();
+        fCtx.moveTo(sh.x, sh.y);
+        fCtx.lineTo(sh.x - sh.len*0.7, sh.y - sh.len*0.35);
+        fCtx.stroke();
+      });
+      shooters = shooters.filter(sh=>sh.life > 0 && sh.x < fCanvas.width+100);
+      requestAnimationFrame(drawFooter);
+    }
+    drawFooter();
+  }
+</script>
+</body>
+</html>
