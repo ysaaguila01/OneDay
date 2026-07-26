@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Wedding Background — Preview</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    width:100%;height:100%;
+    background:#0a1428;
+    overflow:hidden;
+  }
+  .bg-stage{
+    position:relative;
+    width:100vw;height:100vh;
+    overflow:hidden;
+    isolation:isolate;
+  }
+
+  /* ============ BASE: deep navy silk/marble gradient ============ */
+  .bg-base{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 0%, rgba(30,54,96,.55) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 80% at 50% 100%, rgba(10,20,40,.9) 0%, transparent 65%),
+      linear-gradient(135deg, #0c1730 0%, #142c52 28%, #0e2040 55%, #0a1428 100%);
+  }
+  /* silk sheen streaks */
+  .bg-silk{
+    position:absolute;inset:0;z-index:1;
+    mix-blend-mode:soft-light;
+    opacity:.5;
+    background:
+      repeating-linear-gradient(115deg,
+        rgba(255,255,255,.05) 0px,
+        rgba(255,255,255,.05) 2px,
+        transparent 2px,
+        transparent 90px),
+      repeating-linear-gradient(65deg,
+        rgba(255,255,255,.035) 0px,
+        rgba(255,255,255,.035) 1px,
+        transparent 1px,
+        transparent 140px);
+  }
+  /* subtle marble veining via fractal noise */
+  .bg-marble{
+    position:absolute;inset:0;z-index:1;
+    opacity:.16;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.03' numOctaves='4' seed='7' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0.85  0 0 0 0 0.82  0 0 0 0 0.65  0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size:400px 400px;
+  }
+  /* fine grain, keeps it premium/editorial rather than flat */
+  .bg-grain{
+    position:absolute;inset:0;z-index:6;
+    opacity:.045;mix-blend-mode:overlay;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  }
+
+  /* ============ Soft cinematic bokeh, biased to corners ============ */
+  .bg-bokeh{position:absolute;inset:0;z-index:2;pointer-events:none;}
+  .bokeh-dot{
+    position:absolute;border-radius:50%;
+    background:radial-gradient(circle, rgba(231,211,160,.9) 0%, rgba(231,211,160,.25) 45%, transparent 75%);
+    filter:blur(1px);
+  }
+
+  /* ============ CLEAN CENTER GUARD ============ */
+  /* Ensures ~70% of the center stays clear: darkens/fades decorations that
+     drift inward via a radial mask on the ornament layer. */
+  .bg-ornaments{
+    position:absolute;inset:0;z-index:3;
+    -webkit-mask-image:radial-gradient(ellipse 62% 58% at 50% 50%, transparent 62%, black 100%);
+            mask-image:radial-gradient(ellipse 62% 58% at 50% 50%, transparent 62%, black 100%);
+  }
+  .corner{position:absolute;width:38%;max-width:520px;opacity:.92;}
+  .corner svg{width:100%;height:auto;display:block;}
+  .c-tl{top:-4%;left:-6%;transform:rotate(0deg);}
+  .c-tr{top:-4%;right:-6%;transform:scaleX(-1);}
+  .c-bl{bottom:-6%;left:-6%;transform:scaleY(-1);}
+  .c-br{bottom:-6%;right:-6%;transform:scale(-1,-1);}
+
+  /* soft gold leaf accent glow behind each corner cluster */
+  .corner-glow{
+    position:absolute;width:46%;max-width:600px;aspect-ratio:1/1;
+    border-radius:50%;z-index:2;filter:blur(30px);
+    background:radial-gradient(circle, rgba(198,161,91,.16) 0%, transparent 70%);
+  }
+  .cg-tl{top:-10%;left:-10%;}
+  .cg-tr{top:-10%;right:-10%;}
+  .cg-bl{bottom:-10%;left:-10%;}
+  .cg-br{bottom:-10%;right:-10%;}
+
+  /* ============ Vignette to keep center luminous & readable ============ */
+  .bg-vignette{
+    position:absolute;inset:0;z-index:4;pointer-events:none;
+    background:radial-gradient(ellipse 68% 62% at 50% 50%, rgba(10,18,36,0) 45%, rgba(8,14,28,.35) 100%);
+  }
+
+  /* label for preview only */
+  .preview-note{
+    position:absolute;z-index:10;top:50%;left:50%;transform:translate(-50%,-50%);
+    text-align:center;color:rgba(246,240,227,.5);
+    font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:14px;
+    letter-spacing:.05em;
+    pointer-events:none;
+  }
+</style>
+</head>
+<body>
+<div class="bg-stage">
+  <div class="bg-base"></div>
+  <div class="bg-marble"></div>
+  <div class="bg-silk"></div>
+
+  <div class="corner-glow cg-tl"></div>
+  <div class="corner-glow cg-tr"></div>
+  <div class="corner-glow cg-bl"></div>
+  <div class="corner-glow cg-br"></div>
+
+  <div class="bg-bokeh" id="bokeh"></div>
+
+  <div class="bg-ornaments">
+    <div class="corner c-tl">
+      <!-- rose + baby's breath + gold leaf cluster (line-art, elegant) -->
+      <svg viewBox="0 0 400 400" fill="none">
+        <defs>
+          <radialGradient id="roseFillTL" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#fdfaf3"/>
+            <stop offset="100%" stop-color="#e9e2d2"/>
+          </radialGradient>
+        </defs>
+        <!-- gold leaf sprays -->
+        <g stroke="#c6a15b" stroke-width="1.1" opacity=".75">
+          <path d="M10 30 Q90 10 160 55"/>
+          <path d="M30 60 Q40 40 55 25"/>
+          <path d="M50 75 Q65 55 78 40"/>
+          <path d="M75 95 Q95 70 115 55"/>
+          <path d="M100 40 Q115 20 140 12"/>
+        </g>
+        <g fill="#c6a15b" opacity=".85">
+          <ellipse cx="55" cy="25" rx="7" ry="3" transform="rotate(-30 55 25)"/>
+          <ellipse cx="78" cy="40" rx="8" ry="3.4" transform="rotate(-20 78 40)"/>
+          <ellipse cx="115" cy="55" rx="9" ry="3.6" transform="rotate(-15 115 55)"/>
+          <ellipse cx="140" cy="12" rx="6" ry="2.6" transform="rotate(-40 140 12)"/>
+        </g>
+        <!-- roses -->
+        <g>
+          <circle cx="70" cy="90" r="34" fill="url(#roseFillTL)" opacity=".95"/>
+          <path d="M70 66c8 4 16 10 18 22-10 4-22 0-26-10-2-6 0-9 8-12z" fill="#f3ecdd" opacity=".9"/>
+          <path d="M48 90c4-9 13-16 24-16 2 10-4 20-14 24-8 3-13-1-10-8z" fill="#f0e8d7" opacity=".9"/>
+          <path d="M60 112c-6-8-6-19 2-26 8 4 12 15 8 24-3 7-7 7-10 2z" fill="#efe6d4" opacity=".9"/>
+          <circle cx="70" cy="90" r="9" fill="#e4d8bd"/>
+        </g>
+        <g opacity=".8">
+          <circle cx="128" cy="118" r="17" fill="url(#roseFillTL)"/>
+          <circle cx="128" cy="118" r="5" fill="#e4d8bd"/>
+        </g>
+        <!-- baby's breath -->
+        <g fill="#f6f0e3" opacity=".85">
+          <circle cx="150" cy="70" r="2.6"/><circle cx="160" cy="82" r="2.2"/>
+          <circle cx="168" cy="60" r="2.4"/><circle cx="178" cy="95" r="2"/>
+          <circle cx="140" cy="140" r="2.3"/><circle cx="155" cy="150" r="2"/>
+          <circle cx="20" cy="110" r="2.2"/><circle cx="35" cy="130" r="2"/>
+          <circle cx="15" cy="150" r="2.4"/>
+        </g>
+        <g stroke="#d8cdb4" stroke-width=".6" opacity=".6">
+          <path d="M128 118 Q140 95 150 70"/>
+          <path d="M128 118 Q150 130 168 60"/>
+          <path d="M70 90 Q10 100 15 150"/>
+          <path d="M70 90 Q100 120 140 140"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="corner c-tr">
+      <svg viewBox="0 0 400 400" fill="none">
+        <defs>
+          <radialGradient id="roseFillTR" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#fdfaf3"/>
+            <stop offset="100%" stop-color="#e9e2d2"/>
+          </radialGradient>
+        </defs>
+        <g stroke="#c6a15b" stroke-width="1.1" opacity=".75">
+          <path d="M10 30 Q90 10 160 55"/>
+          <path d="M30 60 Q40 40 55 25"/>
+          <path d="M50 75 Q65 55 78 40"/>
+          <path d="M75 95 Q95 70 115 55"/>
+        </g>
+        <g fill="#c6a15b" opacity=".85">
+          <ellipse cx="55" cy="25" rx="7" ry="3" transform="rotate(-30 55 25)"/>
+          <ellipse cx="78" cy="40" rx="8" ry="3.4" transform="rotate(-20 78 40)"/>
+          <ellipse cx="115" cy="55" rx="9" ry="3.6" transform="rotate(-15 115 55)"/>
+        </g>
+        <g>
+          <circle cx="70" cy="90" r="30" fill="url(#roseFillTR)" opacity=".95"/>
+          <path d="M70 66c8 4 16 10 18 22-10 4-22 0-26-10-2-6 0-9 8-12z" fill="#f3ecdd" opacity=".9"/>
+          <path d="M48 90c4-9 13-16 24-16 2 10-4 20-14 24-8 3-13-1-10-8z" fill="#f0e8d7" opacity=".9"/>
+          <circle cx="70" cy="90" r="8" fill="#e4d8bd"/>
+        </g>
+        <g opacity=".8">
+          <circle cx="122" cy="112" r="14" fill="url(#roseFillTR)"/>
+          <circle cx="122" cy="112" r="4" fill="#e4d8bd"/>
+        </g>
+        <g fill="#f6f0e3" opacity=".85">
+          <circle cx="150" cy="70" r="2.6"/><circle cx="160" cy="82" r="2.2"/>
+          <circle cx="20" cy="110" r="2.2"/><circle cx="35" cy="130" r="2"/>
+          <circle cx="15" cy="150" r="2.4"/>
+        </g>
+        <g stroke="#d8cdb4" stroke-width=".6" opacity=".6">
+          <path d="M70 90 Q10 100 15 150"/>
+          <path d="M122 112 Q140 90 150 70"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="corner c-bl">
+      <svg viewBox="0 0 400 400" fill="none">
+        <defs>
+          <radialGradient id="roseFillBL" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#fdfaf3"/>
+            <stop offset="100%" stop-color="#e9e2d2"/>
+          </radialGradient>
+        </defs>
+        <g stroke="#c6a15b" stroke-width="1.1" opacity=".7">
+          <path d="M20 40 Q80 15 150 50"/>
+          <path d="M40 70 Q55 50 70 35"/>
+          <path d="M60 85 Q80 65 95 50"/>
+        </g>
+        <g fill="#c6a15b" opacity=".8">
+          <ellipse cx="70" cy="35" rx="7" ry="3" transform="rotate(-30 70 35)"/>
+          <ellipse cx="95" cy="50" rx="8" ry="3.2" transform="rotate(-18 95 50)"/>
+        </g>
+        <g>
+          <circle cx="80" cy="100" r="28" fill="url(#roseFillBL)" opacity=".95"/>
+          <path d="M80 78c7 4 14 9 16 19-9 4-19 0-23-9-2-5 0-8 7-10z" fill="#f3ecdd" opacity=".9"/>
+          <circle cx="80" cy="100" r="8" fill="#e4d8bd"/>
+        </g>
+        <g opacity=".8">
+          <circle cx="35" cy="130" r="13" fill="url(#roseFillBL)"/>
+          <circle cx="35" cy="130" r="4" fill="#e4d8bd"/>
+        </g>
+        <g fill="#f6f0e3" opacity=".85">
+          <circle cx="130" cy="90" r="2.4"/><circle cx="145" cy="105" r="2.2"/>
+          <circle cx="20" cy="80" r="2"/>
+        </g>
+        <g stroke="#d8cdb4" stroke-width=".6" opacity=".55">
+          <path d="M80 100 Q110 90 130 90"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="corner c-br">
+      <svg viewBox="0 0 400 400" fill="none">
+        <defs>
+          <radialGradient id="roseFillBR" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#fdfaf3"/>
+            <stop offset="100%" stop-color="#e9e2d2"/>
+          </radialGradient>
+        </defs>
+        <g stroke="#c6a15b" stroke-width="1.1" opacity=".75">
+          <path d="M10 30 Q90 10 160 55"/>
+          <path d="M30 60 Q40 40 55 25"/>
+          <path d="M50 75 Q65 55 78 40"/>
+          <path d="M75 95 Q95 70 115 55"/>
+        </g>
+        <g fill="#c6a15b" opacity=".85">
+          <ellipse cx="55" cy="25" rx="7" ry="3" transform="rotate(-30 55 25)"/>
+          <ellipse cx="78" cy="40" rx="8" ry="3.4" transform="rotate(-20 78 40)"/>
+          <ellipse cx="115" cy="55" rx="9" ry="3.6" transform="rotate(-15 115 55)"/>
+        </g>
+        <g>
+          <circle cx="70" cy="90" r="32" fill="url(#roseFillBR)" opacity=".95"/>
+          <path d="M70 66c8 4 16 10 18 22-10 4-22 0-26-10-2-6 0-9 8-12z" fill="#f3ecdd" opacity=".9"/>
+          <path d="M48 90c4-9 13-16 24-16 2 10-4 20-14 24-8 3-13-1-10-8z" fill="#f0e8d7" opacity=".9"/>
+          <circle cx="70" cy="90" r="9" fill="#e4d8bd"/>
+        </g>
+        <g opacity=".8">
+          <circle cx="125" cy="115" r="15" fill="url(#roseFillBR)"/>
+          <circle cx="125" cy="115" r="4.5" fill="#e4d8bd"/>
+        </g>
+        <g fill="#f6f0e3" opacity=".85">
+          <circle cx="150" cy="70" r="2.6"/><circle cx="160" cy="82" r="2.2"/>
+          <circle cx="20" cy="110" r="2.2"/><circle cx="15" cy="150" r="2.4"/>
+        </g>
+        <g stroke="#d8cdb4" stroke-width=".6" opacity=".6">
+          <path d="M70 90 Q10 100 15 150"/>
+          <path d="M125 115 Q145 95 150 70"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="bg-vignette"></div>
+  <div class="bg-grain"></div>
+
+  <div class="preview-note">70% clean center — reserved for your website content</div>
+</div>
+
+<script>
+  // Scatter soft floating gold bokeh particles, biased toward corners,
+  // with only a light scatter drifting into the clean center.
+  const bokehLayer = document.getElementById('bokeh');
+  const W = window.innerWidth, H = window.innerHeight;
+  const spots = [];
+
+  function addCluster(cx, cy, count, spread, sizeMin, sizeMax){
+    for(let i=0;i<count;i++){
+      const x = cx + (Math.random()-0.5)*spread;
+      const y = cy + (Math.random()-0.5)*spread;
+      const s = sizeMin + Math.random()*(sizeMax-sizeMin);
+      spots.push({x,y,s, dur: 8+Math.random()*10, delay: Math.random()*6});
+    }
+  }
+  addCluster(W*0.08, H*0.1, 10, W*0.28, 3, 14);
+  addCluster(W*0.92, H*0.1, 10, W*0.28, 3, 14);
+  addCluster(W*0.08, H*0.9, 10, W*0.28, 3, 14);
+  addCluster(W*0.92, H*0.9, 10, W*0.28, 3, 14);
+  // a few faint drifters across the whole frame for cinematic depth
+  addCluster(W*0.5, H*0.5, 6, W*0.9, 2, 6);
+
+  spots.forEach(sp=>{
+    const el = document.createElement('div');
+    el.className = 'bokeh-dot';
+    el.style.width = sp.s+'px';
+    el.style.height = sp.s+'px';
+    el.style.left = sp.x+'px';
+    el.style.top = sp.y+'px';
+    el.style.opacity = (0.25 + Math.random()*0.5).toFixed(2);
+    el.style.animation = `floaty ${sp.dur}s ease-in-out ${sp.delay}s infinite`;
+    bokehLayer.appendChild(el);
+  });
+
+  const styleTag = document.createElement('style');
+  styleTag.textContent = `
+    @keyframes floaty {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(6px, -18px); }
+    }
+  `;
+  document.head.appendChild(styleTag);
+</script>
+</body>
+</html>
