@@ -1,1 +1,53 @@
+name: Generate Gallery JSON
 
+on:
+  push:
+    paths:
+      - 'assets/images/gallery/**'
+      - '.github/workflows/gallery.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  generate-gallery:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate gallery.json
+        run: |
+          mkdir -p assets
+
+          echo "[" > assets/gallery.json
+
+          first=true
+
+          for file in assets/images/gallery/*; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+
+              if [ "$first" = true ]; then
+                first=false
+              else
+                echo "," >> assets/gallery.json
+              fi
+
+              echo "  \"assets/images/gallery/$filename\"" >> assets/gallery.json
+            fi
+          done
+
+          echo "]" >> assets/gallery.json
+
+      - name: Commit gallery.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add assets/gallery.json
+
+          git diff --cached --quiet || git commit -m "Auto update gallery"
+
+          git push
