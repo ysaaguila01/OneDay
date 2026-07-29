@@ -2,9 +2,11 @@ name: Generate Gallery JSON
 
 on:
   push:
+    branches:
+      - main
     paths:
-      - 'assets/images/gallery/**'
-      - '.github/workflows/gallery.yml'
+      - "assets/images/gallery/**"
+      - ".github/workflows/gallery.yml"
 
 permissions:
   contents: write
@@ -16,6 +18,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Generate gallery.json
         run: |
@@ -25,18 +29,17 @@ jobs:
 
           first=true
 
-          for file in assets/images/gallery/*; do
-            if [ -f "$file" ]; then
-              filename=$(basename "$file")
-
-              if [ "$first" = true ]; then
-                first=false
-              else
-                echo "," >> assets/gallery.json
-              fi
-
-              echo "  \"assets/images/gallery/$filename\"" >> assets/gallery.json
+          find assets/images/gallery -maxdepth 1 -type f \
+            \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" -o -iname "*.heic" \) \
+            | sort | while read file
+          do
+            if [ "$first" = true ]; then
+              first=false
+            else
+              echo "," >> assets/gallery.json
             fi
+
+            echo "  \"$file\"" >> assets/gallery.json
           done
 
           echo "]" >> assets/gallery.json
@@ -48,6 +51,15 @@ jobs:
 
           git add assets/gallery.json
 
-          git diff --cached --quiet || git commit -m "Auto update gallery"
+          # Skip if nothing changed
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Auto update gallery"
+
+          # Sync with latest main before pushing
+          git pull --rebase origin main
 
           git push
